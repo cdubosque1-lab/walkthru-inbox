@@ -112,6 +112,11 @@ with `status: "approved"`, `approved_at`, `lines` (name, cf, qty, custom, box, r
    (`update`, pinned with `if_version`): `status: "entered"`, `job`, `entered_at`.
    In `answers.json` set `status: "entered"`, `granot_job`, `granot_entered_at`; commit
    and push. Email Christian: "Entered in Granot: <name>, job <number>, <cf> cf, <price>".
+6c. **Tell the customer's screen it is done.** Right after the job is in Granot, open
+   `/home/claude/walkthru/results/<uid>.json`, add `"done": true`, commit and push that repo.
+   The customer's loading bar then jumps to 100% and shows the "Call in now for an additional
+   $300 off" pop-up. (If a walkthrough had no questions, create the file as `{"done": true}`.
+   Do this only after the entry succeeded and the Charges page shows the job.)
 7. If anything fails, set the document's `status: "error"` with a short `message`, and
    email Christian what happened.
 
