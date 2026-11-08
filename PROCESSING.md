@@ -103,6 +103,11 @@ with `status: "approved"`, `approved_at`, `lines` (name, cf, qty, custom, box, r
    `clearItems()` first. Add each approved line with `alterQty(index, n)`; add custom
    lines with the NEWITEM / NEWVOLUME / NEWQTY fields and the Add New Item button. Check
    the page total matches `total_cf`, then Submit (`submitToCharges()`).
+5b. PACKING MATERIALS (Christian, Nov 7). If `answers.packing` is "No" (customer wants packing
+   help), also add every box on the inventory list (same box types and counts) to the
+   file's Packing Materials section on the Charges page, then check the price. Only for
+   "No"; for "Yes" or "Some" leave Packing Materials alone (mention "Some" in the email
+   so Christian can decide). Never email or send anything from Granot.
 6. Read the job number from the Charges page. Update the page's document with ArtifactData
    (`update`, pinned with `if_version`): `status: "entered"`, `job`, `entered_at`.
    In `answers.json` set `status: "entered"`, `granot_job`, `granot_entered_at`; commit
