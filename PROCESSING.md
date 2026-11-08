@@ -54,6 +54,7 @@ customer's screen) → `reviewed` (review page live, waiting for the rep) → `e
    file). The customer's bar then hits 100% and shows the questions. Set `answers.json`
    `"status": "awaiting_customer"` plus `"questions_at"`, commit and push the inbox repo,
    keep the work folder, and stop. Do not publish or email yet.
+   FAST PATH (Christian, Nov 7): while any walkthrough is `awaiting_customer`, check every 1 minute (not 5) and build/publish the review page the moment the customer's answers arrive. Do not wait for the next 5-minute check.
    On later checks, for each `awaiting_customer`: if `state/calls/<uid>.json` exists, read
    the customer's `q_<flag id>` answers, apply them (set item names and cf from the chosen
    option for single-item flags; set qtys yourself for multi-item flags like washer and
