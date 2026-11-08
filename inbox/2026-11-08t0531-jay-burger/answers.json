@@ -1,5 +1,5 @@
 {
- "status": "processing",
+ "status": "awaiting_customer",
  "public_id": "xcurqsmqg41apqtix1u8",
  "created_at": "2026-11-08T05:31:26Z",
  "bytes": 7540713,
@@ -27,5 +27,6 @@
   "uid": "wt17941158793456d0vdx0k"
  },
  "video_file": "video.mp4",
- "claimed_at": "2026-11-08T05:32:01.954251+00:00"
+ "claimed_at": "2026-11-08T05:32:01.954251+00:00",
+ "questions_at": "2026-11-08T05:36:00Z"
 }
