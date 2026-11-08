@@ -1,5 +1,5 @@
 {
-  "status": "new",
+  "status": "processing",
   "public_id": "jrqwxetkh5hsgydmuwfp",
   "created_at": "2026-11-08T04:02:39Z",
   "bytes": 26350886,
@@ -26,5 +26,6 @@
     "to_zip": "33444",
     "uid": "wt1794110546099blpjtuxr"
   },
-  "video_file": "video.mp4"
+  "video_file": "video.mp4",
+  "claimed_at": "2026-11-08T04:04:13.091907+00:00"
 }
