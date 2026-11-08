@@ -1,5 +1,5 @@
 {
-  "status": "processing",
+  "status": "reviewed",
   "public_id": "skquicvhljt2c9siwzqt",
   "created_at": "2026-11-08T05:10:14Z",
   "bytes": 13355047,
@@ -27,5 +27,8 @@
     "uid": "wt1794114603931jr3cm5nk"
   },
   "video_file": "video.mp4",
-  "claimed_at": "2026-11-08T05:15:05.079330+00:00"
+  "claimed_at": "2026-11-08T05:15:05.079330+00:00",
+  "review_url": "https://claude.ai/artifact/3KvcvjwdqfCEGxptFSeDmV",
+  "reviewed_at": "2026-11-08T05:19:13.492455+00:00",
+  "note": "Questions not delivered to customer (no push access to walkthru repo this run); defaults used. Granot entry pending (Chrome unavailable in cloud run)."
 }
