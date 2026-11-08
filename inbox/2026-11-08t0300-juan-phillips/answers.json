@@ -1,5 +1,5 @@
 {
-  "status": "processing",
+  "status": "reviewed",
   "public_id": "zbkezg1mnbmxrnapj6hj",
   "created_at": "2026-11-08T03:00:51Z",
   "bytes": 45149301,
@@ -19,5 +19,7 @@
     "to_zip": "33444"
   },
   "video_file": "video.mp4",
-  "claimed_at": "2026-11-08T03:04:06Z"
+  "claimed_at": "2026-11-08T03:04:06Z",
+  "review_url": "https://claude.ai/artifact/7nbx5kKWLRqhLB4b5kYejo",
+  "reviewed_at": "2026-11-08T03:12:03Z"
 }
