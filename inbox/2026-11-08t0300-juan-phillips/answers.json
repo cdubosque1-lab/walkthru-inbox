@@ -1,0 +1,22 @@
+{
+  "status": "new",
+  "public_id": "zbkezg1mnbmxrnapj6hj",
+  "created_at": "2026-11-08T03:00:51Z",
+  "bytes": 45149301,
+  "format": "mp4",
+  "width": 720,
+  "height": 1280,
+  "answers": {
+    "first": "Juan",
+    "from_zip": "03840",
+    "last": "Phillips",
+    "move_date": "2026-12-29",
+    "packing": "Yes",
+    "phone": "6035840038",
+    "rep": "Christian",
+    "seconds": "189",
+    "sound": "yes",
+    "to_zip": "33444"
+  },
+  "video_file": "video.mp4"
+}
