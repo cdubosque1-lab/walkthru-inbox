@@ -34,11 +34,16 @@ Cloudinary, and the GitHub Action copies each one into `inbox/<folder>/` (`video
      `"current": true`.
 6. Write `/tmp/wt/<folder>/spec.json` in the format of `review-kit/example-spec.json`.
    Leave out `job` and `pricing`. Include `packing` and `sound` from `answers.json`.
+   If the scheduled task "Walkthru: Input into Granot wake-up" exists and is enabled
+   (list_triggers), add `"wakeTrigger": "<its trig_ id>"` so the button wakes Claude
+   the moment it is pressed.
 7. Copy every frame the spec references into `/tmp/wt/<folder>/img/`, then run
    `python3 review-kit/build.py /tmp/wt/<folder>`.
 8. Publish `/tmp/wt/<folder>/index.html` with the Artifact tool, with
    `capabilities: {"db": {}}` (the Input into Granot button needs it) and `files` for
    `walkthrough.mp4` and each `img/*.jpg`. Title "<First Last> Inventory Review", icon "box".
+   When the spec has `wakeTrigger`, use
+   `capabilities: {"db": {}, "mcp": {"servers": [{"server": "Claude Code Remote", "tools": ["fire_trigger"]}]}}`.
 9. Email the link to cdubosque@yahoo.com. Subject: "Walkthrough ready: <First Last>".
    Body: name, phone, route (zips), move date, packing answer, total cubic feet and box
    count, one line per judgment call, and the link.
