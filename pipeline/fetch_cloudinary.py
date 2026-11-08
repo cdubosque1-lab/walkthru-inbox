@@ -76,6 +76,23 @@ def main() -> None:
         added += 1
         print(f"added {folder}")
 
+    # Customers' answers to the judgment-call questions (tiny images tagged walkthrough_answers).
+    os.makedirs("state/calls", exist_ok=True)
+    try:
+        page = api("resources/image/tags/walkthrough_answers", {"context": "true", "max_results": 100})
+        for r in page.get("resources", []):
+            ctx = (r.get("context") or {}).get("custom", {})
+            uid = re.sub(r"[^A-Za-z0-9]", "", ctx.get("uid", ""))
+            if not uid:
+                continue
+            path = os.path.join("state", "calls", uid + ".json")
+            if not os.path.exists(path):
+                with open(path, "w") as f:
+                    json.dump({"answers": ctx, "created_at": r.get("created_at")}, f, indent=2)
+                print(f"customer answers for {uid}")
+    except Exception as e:  # never block video fetching on this
+        print("answers fetch failed:", e)
+
     os.makedirs("state", exist_ok=True)
     with open(STATE, "w") as f:
         json.dump(sorted(seen), f, indent=2)

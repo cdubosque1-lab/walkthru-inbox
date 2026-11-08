@@ -11,3 +11,5 @@ Private inbox for customer moving walkthroughs.
 
 Secrets this repo needs (Settings → Secrets and variables → Actions):
 `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`.
+
+Customer flow now: details (with addresses and bedrooms) -> video -> "Analyzing video" 0-100% -> judgment-call questions -> "Christian is preparing your quote". Claude publishes questions to `results/<uid>.json` in the public walkthru repo; the customer's answers come back as a tiny Cloudinary image tagged `walkthrough_answers` and land in `state/calls/<uid>.json`.
