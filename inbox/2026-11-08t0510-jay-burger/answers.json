@@ -1,0 +1,30 @@
+{
+  "status": "new",
+  "public_id": "skquicvhljt2c9siwzqt",
+  "created_at": "2026-11-08T05:10:14Z",
+  "bytes": 13355047,
+  "format": "mp4",
+  "width": 720,
+  "height": 1280,
+  "answers": {
+    "bedrooms": "2 bedrooms",
+    "first": "Jay",
+    "from_addr": "1 Infinite Loop",
+    "from_city": "Cupertino",
+    "from_state": "CA",
+    "from_zip": "95014",
+    "last": "Burger",
+    "move_date": "2026-11-30",
+    "packing": "No",
+    "phone": "6035840038",
+    "rep": "Christian",
+    "seconds": "56",
+    "sound": "yes",
+    "to_addr": "1 Infinite Loop",
+    "to_city": "Cupertino",
+    "to_state": "CA",
+    "to_zip": "95014",
+    "uid": "wt1794114603931jr3cm5nk"
+  },
+  "video_file": "video.mp4"
+}
