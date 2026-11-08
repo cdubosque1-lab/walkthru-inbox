@@ -1,0 +1,1 @@
+{"on": false, "changed_at": "2026-11-08T05:10:00Z", "note": "Christian turns this on with 'turn on work task mode' and off with 'turn off work task mode'. Scheduled task 'Walkthru inbox check' only keeps rescheduling itself while on is true."}
