@@ -1,5 +1,5 @@
 {
-  "status": "reviewed",
+  "status": "entered",
   "public_id": "npp1nlju1sidhcxtf4uv",
   "created_at": "2026-11-08T04:46:39Z",
   "bytes": 18802199,
@@ -30,5 +30,7 @@
   "claimed_at": "2026-11-08T04:48:08.594609+00:00",
   "questions_at": "2026-11-08T04:49:07.944321+00:00",
   "review_url": "https://claude.ai/artifact/QQNfsAMdypkEWhRgTq2RfC",
-  "reviewed_at": "2026-11-08T04:52:33.636677+00:00"
+  "reviewed_at": "2026-11-08T04:52:33.636677+00:00",
+  "granot_job": "T4120047",
+  "granot_entered_at": "2026-11-08T04:58:37.088883+00:00"
 }
