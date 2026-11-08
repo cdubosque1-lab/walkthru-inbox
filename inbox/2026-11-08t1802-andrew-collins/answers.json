@@ -1,5 +1,5 @@
 {
- "status": "awaiting_customer",
+ "status": "entered",
  "public_id": "wkj6c6guurb1kqoou4pc",
  "created_at": "2026-11-08T18:02:44Z",
  "bytes": 14155037,
@@ -29,5 +29,9 @@
  },
  "video_file": "video.mp4",
  "claimed_at": "2026-11-08T18:04:56Z",
- "questions_at": "2026-11-08T18:12:00Z"
+ "questions_at": "2026-11-08T18:12:00Z",
+ "review_url": "https://claude.ai/artifact/GNXFdDZ4YJQUNrDP1qUc1T",
+ "granot_job": "T4120050",
+ "reviewed_at": "2026-11-08T18:20:00Z",
+ "granot_entered_at": "2026-11-08T18:30:00Z"
 }
