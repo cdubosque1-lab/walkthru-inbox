@@ -415,7 +415,16 @@ const D = __DATA_JSON__;
 
   // ---- Input into Granot: the rep's approval, stored in this page's database ----
   const gSend = $('g-send');
-  let gdb = null, gState = null;
+  let gdb = null, gState = null, mcpNs = null;
+  (async () => { try { mcpNs = (window.claude && window.claude.use) ? await window.claude.use('mcp') : null; } catch (e) { mcpNs = null; } })();
+  async function wakeClaude() {
+    if (!D.wakeTrigger) return 'none';
+    if (!mcpNs) return 'unavailable';
+    try {
+      await mcpNs.callTool('Claude Code Remote', 'fire_trigger', { trigger_id: D.wakeTrigger, text: 'Input into Granot pressed for ' + D.customer + '.' });
+      return 'ok';
+    } catch (e) { return (e && e.code) || 'error'; }
+  }
   const when = iso => { try { return new Date(iso).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }); } catch (e) { return ''; } };
   function payload() {
     const P = Object.assign({ lbsPerCf: 7 }, D.pricing || {});
@@ -439,7 +448,7 @@ const D = __DATA_JSON__;
       gSend.textContent = 'Send changes to Granot';
     } else if (s === 'approved') {
       chip.className = 'chip flag'; chip.textContent = 'Waiting for Claude';
-      $('g-text').textContent = 'Approved ' + when(gState.approved_at) + '. Claude will enter it in Granot within about 5 minutes while the 5-minute check is on, otherwise at the next hourly check.';
+      $('g-text').textContent = 'Approved ' + when(gState.approved_at) + '. Claude enters it in Granot as soon as it wakes up, usually within 2 to 3 minutes.';
       gSend.textContent = 'Send again';
     } else if (s === 'error') {
       chip.className = 'chip flag'; chip.textContent = 'Needs attention';
@@ -465,7 +474,12 @@ const D = __DATA_JSON__;
     if (gState && gState.job) body.job = gState.job;
     try {
       await gdb.doc('granot/request').set(body);
-      $('g-err').hidden = true;
+      $('g-err').hidden = false;
+      $('g-err').textContent = 'Approved. Waking Claude…';
+      const w = await wakeClaude();
+      if (w === 'ok') $('g-err').textContent = 'Claude is entering it in Granot now. This usually takes 2 to 3 minutes.';
+      else if (w === 'approval_required' || w === 'not_in_manifest') $('g-err').textContent = 'To start instantly, allow the Claude connection when claude.ai asks, then press Send again. Otherwise Claude picks it up at the next check.';
+      else $('g-err').textContent = 'Approved. Claude will pick it up at the next check.';
     } catch (e) {
       $('g-err').hidden = false;
       $('g-err').textContent = e && e.code === 'invalid_argument' ? 'Only the page owner can send this to Granot.' : 'The approval didn\'t save. Try again in a moment.';
