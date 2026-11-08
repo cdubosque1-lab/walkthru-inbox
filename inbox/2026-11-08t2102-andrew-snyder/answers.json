@@ -1,5 +1,5 @@
 {
-  "status": "error",
+  "status": "entered",
   "public_id": "i5esqtdg5mcsuzdtmzab",
   "created_at": "2026-11-08T21:02:40Z",
   "bytes": 3672706,
@@ -25,5 +25,7 @@
   },
   "video_file": "video.mp4",
   "claimed_at": "2026-11-08T21:04:32Z",
-  "note": "10-second beach clip, no household items visible; nothing to inventory. Needs Christian."
+  "review_url": "https://claude.ai/artifact/J8qH3yB71PeFR1QcrDt9tP",
+  "granot_job": "T4120052",
+  "reviewed_at": "2026-11-08T21:06:59Z"
 }
