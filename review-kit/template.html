@@ -188,6 +188,11 @@ button:focus-visible,.thumb:focus-visible{outline:2px solid var(--accent);outlin
         <ul class="notes" id="notes"></ul>
       </section>
 
+      <section class="card" id="talk-card" aria-labelledby="h-talk" hidden>
+        <div class="card-h"><h2 id="h-talk">Talk to the customer about</h2><p>Good rapport builders for the call.</p></div>
+        <ul class="notes" id="talk"></ul>
+      </section>
+
       <section class="card" aria-labelledby="h-ch">
         <div class="card-h"><h2 id="h-ch">Changes for Granot</h2><p>Copy these and send them to Claude to update the file.</p></div>
         <div class="changes-b">
@@ -292,6 +297,11 @@ const D = __DATA_JSON__;
     '<li class="note"><span class="mic">' + MIC + '</span><div class="note-b"><b>' + esc(D.audio.title) + '</b><p>' + esc(D.audio.summary) + '</p><div class="choices">' +
     D.audio.clips.map(c => '<button type="button" class="cliplink" data-clip="' + c.t + '" data-label="' + esc(c.label) + '">' + PLAY + ' ' + fmtT(c.t) + ' · ' + esc(c.label) + '</button>').join('') +
     '</div></div></li>';
+
+  if (D.talk && D.talk.length) {
+    $('talk-card').hidden = false;
+    $('talk').innerHTML = D.talk.map(n => '<li class="note"><div class="note-b"><b>' + esc(n.title) + '</b><p>' + esc(n.text) + '</p></div></li>').join('');
+  }
 
   const dur = D.video.duration;
   const groups = new Map();

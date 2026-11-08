@@ -165,3 +165,25 @@ cdubosque@yahoo.com.
 
 ## Callback requests
 When a customer taps "Not right now" they pick a call time. fetch writes state/callbacks/*.json ({"callback": {first,last,phone,label,when}, "emailed": false}). Each loop tick, for any file with emailed=false: email cdubosque@yahoo.com ("Callback requested: <first last> <label>, phone <phone>"), set emailed=true, commit and push.
+
+
+## V2 FLOW (Nov 8 redesign; where this conflicts with older text above, this wins)
+Form answers now arrive in answers.json "answers": packing = we_pack | self | some | unsure (NOT Yes/No/Some any more),
+storage = yes|no|maybe, storage_len, optional job (an existing Granot job number, e.g. T4120051).
+1. Questions: results/<uid>.json gets an "intro" string (review-kit/rules.py INTRO) plus the usual judgment calls PLUS
+   rules.judgment_questions_for_items(...) (TV boxes, mirrors, pictures, only when those items are in the inventory).
+2. Packing in Granot: we_pack = add all boxes to Packing Materials. self = none. some/unsure = none yet; put it on the review
+   page under spec["talk"] via rules.talk_cards(). TV answer "we" = add TV box(es) from the Materials page (find the TV box row);
+   mirror "we" = Box-mirror(standard) per mirror; pictures "we" = pack the pictures (box them, medium/large boxes), as sensible.
+3. Storage yes/maybe: show on the review page (talk card) and in the email.
+4. JOB NUMBER (answers.job present): do NOT create a new estimate. Open that exact job in Granot by job number, then update it in place:
+   clearItems() then re-enter inventory, packing materials, move date and addresses from what the CUSTOMER typed (customer wins),
+   phone: customer's number becomes Phone 1, the old Phone 1 moves to Phone 2 (then Phone 3); email: customer's email becomes
+   the primary Email, the old email goes in the Proxy field. If the name differs, use the customer's name and add a "Name changed"
+   rapport card (rules.talk_cards(form, old)). Record old values BEFORE editing. Do not stop on a name mismatch as long as the
+   job number is right. Email lists exactly what changed (old to new).
+   No job number = create a new estimate as before.
+5. Callback ("Not right now" scheduling): besides emailing, open the job in Granot and set the Follow-Up date and time on the
+   Charges page (Follow Up field, Eastern time) to the customer's chosen slot. Never send Granot emails/texts.
+6. Emails: the Gmail connector sends from whichever account it is connected to. Christian wants cdubosque1@gmail.com; that
+   needs the connector re-linked to that account (or a Send-mail-as alias), which only he can do.
