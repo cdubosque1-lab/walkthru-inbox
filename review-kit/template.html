@@ -214,9 +214,9 @@ button:focus-visible,.thumb:focus-visible{outline:2px solid var(--accent);outlin
         <p class="hint" id="g-text">When the inventory looks right, send it. Claude creates the Granot file if there isn't one yet and enters every item.</p>
         <div class="g-confirm" id="g-confirm" hidden>
           <p id="g-confirm-text"></p>
-          <div class="btnrow"><button class="btn" id="g-yes" type="button">Yes, input into Granot</button><button class="btn secondary" id="g-no" type="button">Cancel</button></div>
+          <div class="btnrow"><button class="btn" id="g-yes" type="button">Yes, update Granot</button><button class="btn secondary" id="g-no" type="button">Cancel</button></div>
         </div>
-        <button class="btn wide" id="g-send" type="button" disabled>Input into Granot</button>
+        <button class="btn wide" id="g-send" type="button" disabled>Update Granot version</button>
         <p class="hint" id="g-err" role="status" hidden></p>
       </section>
     </aside>
@@ -430,7 +430,7 @@ const D = __DATA_JSON__;
     if (!D.wakeTrigger) return 'none';
     if (!mcpNs) return 'unavailable';
     try {
-      await mcpNs.callTool('Claude Code Remote', 'fire_trigger', { trigger_id: D.wakeTrigger, text: 'Input into Granot pressed for ' + D.customer + '.' });
+      await mcpNs.callTool('Claude Code Remote', 'fire_trigger', { trigger_id: D.wakeTrigger, text: 'Update Granot version pressed for ' + D.customer + '.' });
       return 'ok';
     } catch (e) { return (e && e.code) || 'error'; }
   }
@@ -453,8 +453,8 @@ const D = __DATA_JSON__;
     gSend.hidden = false; $('g-confirm').hidden = true;
     if (s === 'entered') {
       chip.className = 'chip ok'; chip.textContent = 'In Granot' + (gState.job ? ' · ' + gState.job : '');
-      $('g-text').textContent = 'Entered ' + when(gState.entered_at) + (gState.total_cf ? ' (' + n0(gState.total_cf) + ' cf)' : '') + '. Change anything above and send again to update the file.';
-      gSend.textContent = 'Send changes to Granot';
+      $('g-text').textContent = 'Entered ' + when(gState.entered_at) + (gState.total_cf ? ' (' + n0(gState.total_cf) + ' cf)' : '') + '. Already in Granot. After you go over the judgment calls with the customer, change anything above and press Update Granot version.';
+      gSend.textContent = 'Update Granot version';
     } else if (s === 'approved') {
       chip.className = 'chip flag'; chip.textContent = 'Waiting for Claude';
       $('g-text').textContent = 'Approved ' + when(gState.approved_at) + '. Claude enters it in Granot as soon as it wakes up, usually within 2 to 3 minutes.';
@@ -465,13 +465,13 @@ const D = __DATA_JSON__;
       gSend.textContent = 'Try again';
     } else {
       chip.className = 'chip'; chip.textContent = 'Not sent yet';
-      $('g-text').textContent = 'When the inventory looks right, send it. Claude creates the Granot file if there isn\'t one yet and enters every item.';
-      gSend.textContent = 'Input into Granot';
+      $('g-text').textContent = 'Claude enters the inventory in Granot automatically once the customer answers. Use Update Granot version to push changes.';
+      gSend.textContent = 'Update Granot version';
     }
   }
   gSend.addEventListener('click', () => {
     const p = payload();
-    $('g-confirm-text').textContent = 'Input this inventory into Granot? ' + n0(p.total_cf) + ' cf, ' + p.box_count + ' boxes' +
+    $('g-confirm-text').textContent = 'Update the Granot file with these changes? ' + n0(p.total_cf) + ' cf, ' + p.box_count + ' boxes' +
       (p.open_checks ? ', ' + p.open_checks + ' judgment call' + (p.open_checks > 1 ? 's' : '') + ' not checked yet' : '') + '.';
     $('g-confirm').hidden = false; gSend.hidden = true;
   });

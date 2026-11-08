@@ -8,6 +8,27 @@ Cloudinary, and the GitHub Action copies each one into `inbox/<folder>/` (`video
 customer's screen) → `reviewed` (review page live, waiting for the rep) → `entered` (in Granot).
 `error` means something needs Christian.
 
+
+## NEW FLOW (Christian, Nov 8, overrides the approval steps below)
+
+As soon as the customer's answers arrive (`state/calls/<uid>.json`), do all of this in one go,
+without waiting for any button:
+1. Apply the answers, build and publish the review page (Part A steps 6b to 8).
+2. Immediately enter the inventory in Granot (Part B steps 3 to 5b, new job).
+3. Write the page's database doc with ArtifactData `set` (collection `granot`, doc_id `request`):
+   `status: "entered"`, `job`, `entered_at`, `customer`, `move_size`, `move_date`, `route`,
+   `lines`, `total_cf`, `est_lbs`, `box_count`, `open_checks: 0`, `notes: ""`.
+4. Part B step 6c: set `"done": true` in the customer's results file so their bar hits 100% and the call-in pop-up shows.
+5. Send ONE email to cdubosque@yahoo.com: subject "Walkthrough ready and entered in Granot: <name>, job <number>".
+   Body: name, phone, route, move date, bedrooms, packing answer, total cf and price, one line per
+   judgment call with the customer's answer, anything unusual, and the review page link. Tell him
+   he can go over the judgment calls with the customer on the call and press **Update Granot version**.
+6. Set `answers.json` `status: "entered"` plus `review_url`, `granot_job`, `reviewed_at`, `granot_entered_at`. Commit and push.
+Later, when the page's doc reads `status: "approved"` (he pressed Update Granot version), re-enter
+the changed inventory into the SAME job (Part B step 4 with `granot_job`, `clearItems()` first, redo packing
+materials for packing=No), set the doc back to `entered`, and email a short "Granot updated" note.
+If Granot is logged out or Chrome is unavailable, still email the review link and say what is waiting.
+
 ## A. Build the review page for each `new` walkthrough
 
 1. `git pull`, then find every `inbox/*/answers.json` with `"status": "new"`.
