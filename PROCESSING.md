@@ -161,3 +161,7 @@ with `status: "approved"`, `approved_at`, `lines` (name, cf, qty, custom, box, r
 
 Never send Granot emails or e-sign documents, and never email anyone but
 cdubosque@yahoo.com.
+
+
+## Callback requests
+When a customer taps "Not right now" they pick a call time. fetch writes state/callbacks/*.json ({"callback": {first,last,phone,label,when}, "emailed": false}). Each loop tick, for any file with emailed=false: email cdubosque@yahoo.com ("Callback requested: <first last> <label>, phone <phone>"), set emailed=true, commit and push.

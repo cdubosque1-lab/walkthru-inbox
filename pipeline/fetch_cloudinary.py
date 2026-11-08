@@ -93,6 +93,23 @@ def main() -> None:
     except Exception as e:  # never block video fetching on this
         print("answers fetch failed:", e)
 
+    # Customers who tapped "Not right now" and picked a callback time.
+    os.makedirs("state/callbacks", exist_ok=True)
+    try:
+        page = api("resources/image/tags/walkthrough_callback", {"context": "true", "max_results": 100})
+        for r in page.get("resources", []):
+            ctx = (r.get("context") or {}).get("custom", {})
+            uid = re.sub(r"[^A-Za-z0-9]", "", ctx.get("uid", ""))
+            if not uid:
+                continue
+            path = os.path.join("state", "callbacks", r["public_id"].replace("/", "_") + ".json")
+            if not os.path.exists(path):
+                with open(path, "w") as f:
+                    json.dump({"callback": ctx, "created_at": r.get("created_at"), "emailed": False}, f, indent=2)
+                print(f"callback request for {uid}")
+    except Exception as e:
+        print("callback fetch failed:", e)
+
     os.makedirs("state", exist_ok=True)
     with open(STATE, "w") as f:
         json.dump(sorted(seen), f, indent=2)
