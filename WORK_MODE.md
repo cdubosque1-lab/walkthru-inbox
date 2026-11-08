@@ -1,6 +1,6 @@
 # Work task mode (Christian, Nov 8 2026)
 
-The scheduled task "Walkthru inbox check" runs the walkthrough pipeline (PROCESSING.md) on a
+The scheduled task "Walkthru inbox check" (trig_01Y6Z6XBikM5HGsnoSUxLXTv) runs the walkthrough pipeline (PROCESSING.md) on a
 self-scheduling loop, only while work task mode is on.
 
 - "turn on work task mode": set `state/work-mode.json` `"on": true` (+ `changed_at`), commit and
