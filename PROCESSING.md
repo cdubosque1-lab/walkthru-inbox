@@ -29,7 +29,12 @@ Cloudinary, and the GitHub Action copies each one into `inbox/<folder>/` (`video
      BOX, MED. PBO 18X16X18 (3), BOX, SM. PBO 12X12X18 (2), BOX, CHINA/DISH 18X18X28 (6).
      Small wall items such as a calendar or whiteboard are box items.
    - Anything the customer says is not going stays off and goes in `leftOff` with its time.
-   - Do not sort into rooms. Pick a move size.
+   - SORT BY ROOM (Christian's standing rule since Nov 7, replaces the old "no rooms"
+     rule). Give every item, box line and left-off note a `"room"` (Bathroom, Closet,
+     Bedroom, Kitchen...). Order rooms by when each first appears in the video. Boxes
+     are split by room too (e.g. Kitchen: china boxes). Show the review page grouped by
+     room in that order (add room headings to review-kit/template.html and build.py if
+     they aren't there yet). Pick a move size.
    - Flag the real judgment calls (2 to 5) with options; mark the one you chose
      `"current": true`.
 6. Write `/tmp/wt/<folder>/spec.json` in the format of `review-kit/example-spec.json`.
@@ -74,7 +79,9 @@ with `status: "approved"`, `approved_at`, `lines` (name, cf, qty, custom, box),
    - origin and destination city, state and zip (look up city and state from the zips);
    - move date; lead source REFERRAL only if blank; move size from the review spec;
    - Continue to Inventory.
-5. Inventory: run `filterINV('all')`, map each Granot item name to its `alterQty(index, +1)`
+5. Inventory: enter it room by room in the same order as the review page. Check what
+   Granot offers for rooms (a room field, or item notes); if it has nothing, tell
+   Christian once how you recorded the rooms. Run `filterINV('all')`, map each Granot item name to its `alterQty(index, +1)`
    index from the item rows, and if you are updating a job that already has items, call
    `clearItems()` first. Add each approved line with `alterQty(index, n)`; add custom
    lines with the NEWITEM / NEWVOLUME / NEWQTY fields and the Add New Item button. Check
