@@ -1,0 +1,39 @@
+name: Fetch new walkthroughs
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-walkthroughs
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Copy new walkthroughs from Cloudinary
+        env:
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+        run: python3 pipeline/fetch_cloudinary.py
+
+      - name: Commit anything new
+        run: |
+          if [ -n "$(git status --porcelain inbox state)" ]; then
+            git config user.name "walkthru-bot"
+            git config user.email "walkthru-bot@users.noreply.github.com"
+            git add inbox state
+            git commit -m "New walkthroughs from Cloudinary"
+            git push
+          else
+            echo "Nothing new."
+          fi

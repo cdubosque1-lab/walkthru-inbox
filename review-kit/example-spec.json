@@ -1,0 +1,336 @@
+{
+  "title": "T4120042 Inventory Review",
+  "job": "T4120042",
+  "customer": "Juan Phillips",
+  "route": "Greenland, NH 03840 → Delray Beach, FL 33444",
+  "moveDate": "Dec 7, 2026",
+  "moveSize": "Studio",
+  "status": "Follow-Up",
+  "video": {
+    "src": "walkthrough.mp4",
+    "poster": "img/poster.jpg",
+    "name": "IMG_0511",
+    "duration": 29.2
+  },
+  "pricing": {
+    "rate": 6.53,
+    "fuel": 0.1,
+    "minCf": 300,
+    "lbsPerCf": 7
+  },
+  "items": [
+    {
+      "id": "chest",
+      "name": "CHEST, MEDIUM",
+      "cf": 25,
+      "qty": 1,
+      "t": 4,
+      "img": "img/f005.jpg",
+      "pos": "55% 62%",
+      "label": "Chest of drawers"
+    },
+    {
+      "id": "tv",
+      "name": "T.V. FLAT SCREEN- 33-60",
+      "cf": 12,
+      "qty": 1,
+      "t": 4,
+      "img": "img/f005.jpg",
+      "pos": "55% 22%",
+      "label": "TV on the chest"
+    },
+    {
+      "id": "speaker",
+      "name": "SPEAKER, REGULAR",
+      "cf": 5,
+      "qty": 1,
+      "t": 4,
+      "img": "img/f005.jpg",
+      "pos": "12% 80%",
+      "label": "Black box by the chest"
+    },
+    {
+      "id": "bikes",
+      "name": "BIKE, ADULT",
+      "cf": 10,
+      "qty": 2,
+      "t": 7,
+      "img": "img/f008.jpg",
+      "pos": "30% 68%",
+      "label": "Two bikes"
+    },
+    {
+      "id": "chair",
+      "name": "CHAIR, KITCHEN",
+      "cf": 7,
+      "qty": 1,
+      "t": 9,
+      "img": "img/f010.jpg",
+      "pos": "52% 42%",
+      "label": "Chair with the basket"
+    },
+    {
+      "id": "guitars",
+      "name": "GUITAR (IN CASE)",
+      "cf": 5,
+      "qty": 2,
+      "t": 10,
+      "img": "img/f011.jpg",
+      "pos": "45% 52%",
+      "label": "Two guitars"
+    },
+    {
+      "id": "nightstand",
+      "name": "NIGHT STAND",
+      "cf": 5,
+      "qty": 1,
+      "t": 10,
+      "img": "img/f011.jpg",
+      "pos": "72% 58%",
+      "label": "Nightstand"
+    },
+    {
+      "id": "floorlamp",
+      "name": "LAMP, FLOOR (PBO)",
+      "cf": 7,
+      "qty": 1,
+      "t": 10,
+      "img": "img/f011.jpg",
+      "pos": "78% 28%",
+      "label": "Floor lamp"
+    },
+    {
+      "id": "picL",
+      "name": "PICTURES, LARGE",
+      "cf": 5,
+      "qty": 2,
+      "t": 13,
+      "img": "img/f014.jpg",
+      "pos": "72% 22%",
+      "label": "Deer canvas and the biggest frame"
+    },
+    {
+      "id": "bed",
+      "name": "BED, FULL (WITH MATTRESS)",
+      "cf": 50,
+      "qty": 1,
+      "t": 14,
+      "img": "img/f015.jpg",
+      "pos": "45% 62%",
+      "label": "Bed"
+    },
+    {
+      "id": "picM",
+      "name": "PICTURES, MEDIUM",
+      "cf": 3,
+      "qty": 5,
+      "t": 2,
+      "img": "img/f003.jpg",
+      "pos": "15% 22%",
+      "label": "Painting by the door and 4 leaning frames"
+    },
+    {
+      "id": "picS",
+      "name": "PICTURES, SMALL",
+      "cf": 2,
+      "qty": 2,
+      "t": 18,
+      "img": "img/f019.jpg",
+      "pos": "50% 62%",
+      "label": "Small leaning frames"
+    },
+    {
+      "id": "rack",
+      "name": "WIRE RACK, METAL (CLOSET)",
+      "cf": 5,
+      "qty": 1,
+      "t": 23,
+      "img": "img/f024.jpg",
+      "pos": "52% 50%",
+      "label": "Closet wire rack",
+      "custom": true
+    }
+  ],
+  "boxes": [
+    {
+      "id": "wardrobe",
+      "name": "BOX, WARDROBE",
+      "cf": 16,
+      "qty": 2,
+      "t": 22,
+      "img": "img/f023.jpg",
+      "pos": "35% 30%",
+      "label": "Hanging clothes",
+      "note": "Hanging clothes in the closet"
+    },
+    {
+      "id": "large",
+      "name": "BOX, LG PBO 18X18X24",
+      "cf": 5,
+      "qty": 6,
+      "t": 26,
+      "img": "img/f027.jpg",
+      "pos": "50% 70%",
+      "label": "Clothes in bags",
+      "note": "Clothes on the floor and in bags, bedding and pillows"
+    },
+    {
+      "id": "medium",
+      "name": "BOX, MED. PBO 18X16X18",
+      "cf": 3,
+      "qty": 6,
+      "t": 9,
+      "img": "img/f010.jpg",
+      "pos": "25% 78%",
+      "label": "Shoes and floor items",
+      "note": "Shoes, closet shelf, nightstand and floor items"
+    },
+    {
+      "id": "small",
+      "name": "BOX, SM. PBO 12X12X18",
+      "cf": 2,
+      "qty": 2,
+      "t": 10,
+      "img": "img/f011.jpg",
+      "pos": "62% 72%",
+      "label": "Small items",
+      "note": "Papers, chargers and small decor"
+    }
+  ],
+  "flags": [
+    {
+      "id": "speaker",
+      "item": "speaker",
+      "t": 4,
+      "img": "img/f005.jpg",
+      "pos": "12% 80%",
+      "title": "Black box by the chest: is it a speaker?",
+      "detail": "Entered as Speaker, Regular (5 cf). If it's a storage box or a case, remove it and it rides in the box count.",
+      "options": [
+        {
+          "key": "keep",
+          "label": "Speaker · 5 cf",
+          "set": {
+            "qty": 1
+          },
+          "current": true
+        },
+        {
+          "key": "remove",
+          "label": "Not a speaker · remove",
+          "set": {
+            "qty": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "chair",
+      "item": "chair",
+      "t": 9,
+      "img": "img/f010.jpg",
+      "pos": "52% 42%",
+      "title": "Chair: kitchen or folding?",
+      "detail": "The black metal chair with the basket on it. Entered as Chair, Kitchen (7 cf).",
+      "options": [
+        {
+          "key": "kitchen",
+          "label": "Kitchen chair · 7 cf",
+          "set": {
+            "name": "CHAIR, KITCHEN",
+            "cf": 7
+          },
+          "current": true
+        },
+        {
+          "key": "folding",
+          "label": "Folding chair · 2 cf",
+          "set": {
+            "name": "CHAIR, FOLDING",
+            "cf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "bed",
+      "item": "bed",
+      "t": 14,
+      "img": "img/f015.jpg",
+      "pos": "45% 62%",
+      "title": "Bed size",
+      "detail": "Looks like a full from the pillow width. Entered as Bed, Full (50 cf).",
+      "options": [
+        {
+          "key": "twin",
+          "label": "Twin · 40 cf",
+          "set": {
+            "name": "BED, TWIN (WITH MATTRESS)",
+            "cf": 40
+          }
+        },
+        {
+          "key": "full",
+          "label": "Full · 50 cf",
+          "set": {
+            "name": "BED, FULL (WITH MATTRESS)",
+            "cf": 50
+          },
+          "current": true
+        },
+        {
+          "key": "queen",
+          "label": "Queen · 65 cf",
+          "set": {
+            "name": "BED, QUEEN (WITH MATTRESS)",
+            "cf": 65
+          }
+        }
+      ]
+    },
+    {
+      "id": "frames",
+      "items": [
+        "picL",
+        "picM",
+        "picS"
+      ],
+      "t": 18,
+      "img": "img/f019.jpg",
+      "pos": "50% 55%",
+      "title": "Leaning frames by the closet: 7 counted",
+      "detail": "Entered as 1 large, 4 medium and 2 small, plus the deer canvas and the painting by the door. If you count differently, fix the Pictures rows below.",
+      "options": [
+        {
+          "key": "ok",
+          "label": "Count looks right"
+        }
+      ]
+    }
+  ],
+  "leftOff": [
+    {
+      "label": "Plant on the nightstand",
+      "note": "Company rule: plants aren't moved.",
+      "t": 12,
+      "img": "img/f013.jpg",
+      "pos": "62% 45%"
+    }
+  ],
+  "audio": {
+    "title": "Audio check: no talking",
+    "summary": "Speech-to-text heard no one speaking, only a buzzing sound like clippers. Nothing was called out as not going.",
+    "clips": [
+      {
+        "t": 0,
+        "label": "Buzzing"
+      },
+      {
+        "t": 20,
+        "label": "Buzzing again"
+      }
+    ]
+  },
+  "packing": "Some",
+  "sound": "yes"
+}
