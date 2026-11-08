@@ -187,3 +187,6 @@ storage = yes|no|maybe, storage_len, optional job (an existing Granot job number
    Charges page (Follow Up field, Eastern time) to the customer's chosen slot. Never send Granot emails/texts.
 6. Emails: the Gmail connector sends from whichever account it is connected to. Christian wants cdubosque1@gmail.com; that
    needs the connector re-linked to that account (or a Send-mail-as alias), which only he can do.
+
+Verified Nov 8: typing a job number such as T4120050 into the admin page Search box and pressing Search opens that job directly
+in a new tab (Charges page). Its Entry Form tab has Phone 1/2/3, Email, Proxy and Job No. fields. The Charges page has a Follow Up date/time field.
