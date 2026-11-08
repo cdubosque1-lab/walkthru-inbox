@@ -124,6 +124,13 @@ button:focus-visible,.thumb:focus-visible{outline:2px solid var(--accent);outlin
 .btnrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .btn{min-height:44px;padding:0 18px;border-radius:10px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:600;cursor:pointer}
 .btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.secondary{background:var(--surface);color:var(--accent-text);border-color:var(--line)}
+.btn.wide{width:100%}
+.gcard{padding:14px 16px;display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.g-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
+.g-h h2{font-size:16px;font-weight:600}
+.g-confirm{display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:10px;background:var(--accent-soft)}
+.g-confirm p{font-size:14px;font-weight:500}
 .hint{font-size:13px;color:var(--muted)}
 #notes-in{width:100%;box-sizing:border-box;font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px;resize:vertical}
 #fallback{width:100%;box-sizing:border-box;min-height:120px;font-family:var(--mono);font-size:13px;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px}
@@ -202,6 +209,16 @@ button:focus-visible,.thumb:focus-visible{outline:2px solid var(--accent);outlin
         <div class="legend"><span><i></i>Item</span><span><i class="f"></i>Judgment call</span></div>
         <p class="hint" id="vid-err" hidden>The video didn't load in this browser. The snapshots still show each moment.</p>
       </div>
+      <section class="card gcard" aria-labelledby="h-granot">
+        <div class="g-h"><h2 id="h-granot">Granot</h2><span class="chip" id="g-chip">Not sent yet</span></div>
+        <p class="hint" id="g-text">When the inventory looks right, send it. Claude creates the Granot file if there isn't one yet and enters every item.</p>
+        <div class="g-confirm" id="g-confirm" hidden>
+          <p id="g-confirm-text"></p>
+          <div class="btnrow"><button class="btn" id="g-yes" type="button">Yes, input into Granot</button><button class="btn secondary" id="g-no" type="button">Cancel</button></div>
+        </div>
+        <button class="btn wide" id="g-send" type="button" disabled>Input into Granot</button>
+        <p class="hint" id="g-err" role="status" hidden></p>
+      </section>
     </aside>
   </div>
 </div>
@@ -395,5 +412,80 @@ const D = __DATA_JSON__;
 
   $('notes-in').addEventListener('input', update);
   update();
+
+  // ---- Input into Granot: the rep's approval, stored in this page's database ----
+  const gSend = $('g-send');
+  let gdb = null, gState = null;
+  const when = iso => { try { return new Date(iso).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }); } catch (e) { return ''; } };
+  function payload() {
+    const P = Object.assign({ lbsPerCf: 7 }, D.pricing || {});
+    const lines = all.filter(it => cur[it.id].qty > 0).map(it => ({ name: cur[it.id].name, cf: cur[it.id].cf, qty: cur[it.id].qty, custom: !!cur[it.id].custom, box: !!isBox[it.id] }));
+    const total = lines.reduce((a, l) => a + l.cf * l.qty, 0);
+    return {
+      customer: D.customer, move_size: D.moveSize, move_date: D.moveDate, route: D.route,
+      lines: lines, total_cf: total, est_lbs: total * P.lbsPerCf,
+      box_count: lines.filter(l => l.box).reduce((a, l) => a + l.qty, 0),
+      open_checks: D.flags.filter(f => picked[f.id] === null).length,
+      notes: $('notes-in').value.trim()
+    };
+  }
+  function renderGranot() {
+    const s = gState && gState.status;
+    const chip = $('g-chip');
+    gSend.hidden = false; $('g-confirm').hidden = true;
+    if (s === 'entered') {
+      chip.className = 'chip ok'; chip.textContent = 'In Granot' + (gState.job ? ' · ' + gState.job : '');
+      $('g-text').textContent = 'Entered ' + when(gState.entered_at) + (gState.total_cf ? ' (' + n0(gState.total_cf) + ' cf)' : '') + '. Change anything above and send again to update the file.';
+      gSend.textContent = 'Send changes to Granot';
+    } else if (s === 'approved') {
+      chip.className = 'chip flag'; chip.textContent = 'Waiting for Claude';
+      $('g-text').textContent = 'Approved ' + when(gState.approved_at) + '. Claude will enter it in Granot within about 5 minutes while the 5-minute check is on, otherwise at the next hourly check.';
+      gSend.textContent = 'Send again';
+    } else if (s === 'error') {
+      chip.className = 'chip flag'; chip.textContent = 'Needs attention';
+      $('g-text').textContent = gState.message || 'Claude couldn\'t finish entering it. Check your email for details.';
+      gSend.textContent = 'Try again';
+    } else {
+      chip.className = 'chip'; chip.textContent = 'Not sent yet';
+      $('g-text').textContent = 'When the inventory looks right, send it. Claude creates the Granot file if there isn\'t one yet and enters every item.';
+      gSend.textContent = 'Input into Granot';
+    }
+  }
+  gSend.addEventListener('click', () => {
+    const p = payload();
+    $('g-confirm-text').textContent = 'Input this inventory into Granot? ' + n0(p.total_cf) + ' cf, ' + p.box_count + ' boxes' +
+      (p.open_checks ? ', ' + p.open_checks + ' judgment call' + (p.open_checks > 1 ? 's' : '') + ' not checked yet' : '') + '.';
+    $('g-confirm').hidden = false; gSend.hidden = true;
+  });
+  $('g-no').addEventListener('click', () => { $('g-confirm').hidden = true; gSend.hidden = false; });
+  $('g-yes').addEventListener('click', async () => {
+    if (!gdb) return;
+    $('g-yes').disabled = true;
+    const body = Object.assign({ status: 'approved', approved_at: new Date().toISOString() }, payload());
+    if (gState && gState.job) body.job = gState.job;
+    try {
+      await gdb.doc('granot/request').set(body);
+      $('g-err').hidden = true;
+    } catch (e) {
+      $('g-err').hidden = false;
+      $('g-err').textContent = e && e.code === 'invalid_argument' ? 'Only the page owner can send this to Granot.' : 'The approval didn\'t save. Try again in a moment.';
+      $('g-confirm').hidden = true; gSend.hidden = false;
+    }
+    $('g-yes').disabled = false;
+  });
+  (async () => {
+    try { gdb = (window.claude && window.claude.use) ? await window.claude.use('db') : null; } catch (e) { gdb = null; }
+    if (!gdb) { $('g-text').textContent = 'Open this page in Claude, signed in, to send it to Granot.'; return; }
+    gSend.disabled = false;
+    const t = setTimeout(() => { $('g-err').hidden = false; $('g-err').textContent = 'Still connecting to the approval store…'; }, 10000);
+    gdb.doc('granot/request').onSnapshot(snap => {
+      if (!snap.metadata.fromCache) { clearTimeout(t); $('g-err').hidden = true; }
+      gState = snap.exists ? snap.data() : null;
+      renderGranot();
+    }, err => {
+      clearTimeout(t);
+      $('g-err').hidden = false; $('g-err').textContent = 'The approval store isn\'t available right now.';
+    });
+  })();
 })();
 </script>
