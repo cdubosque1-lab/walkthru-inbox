@@ -1,5 +1,5 @@
 {
- "status": "awaiting_customer",
+ "status": "entered",
  "public_id": "skquicvhljt2c9siwzqt",
  "created_at": "2026-11-08T05:10:14Z",
  "bytes": 13355047,
@@ -28,7 +28,9 @@
  },
  "video_file": "video.mp4",
  "claimed_at": "2026-11-08T05:15:05.079330+00:00",
- "note": "Scheduled run built a defaults-only review (no customer questions, no Granot). Superseded: questions sent by interactive session.",
  "questions_at": "2026-11-08T05:24:00Z",
- "superseded_review_url": "https://claude.ai/artifact/3KvcvjwdqfCEGxptFSeDmV"
+ "review_url": "https://claude.ai/artifact/GdtBqWzfq3E27UReksD6ys",
+ "granot_job": "T4120048",
+ "reviewed_at": "2026-11-08T05:33:00Z",
+ "granot_entered_at": "2026-11-08T05:35:00Z"
 }
