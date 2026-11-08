@@ -1,0 +1,30 @@
+{
+  "status": "new",
+  "public_id": "npp1nlju1sidhcxtf4uv",
+  "created_at": "2026-11-08T04:46:39Z",
+  "bytes": 18802199,
+  "format": "mp4",
+  "width": 720,
+  "height": 1280,
+  "answers": {
+    "bedrooms": "2 bedrooms",
+    "first": "John",
+    "from_addr": "123 NW 13th St",
+    "from_city": "Boca Raton",
+    "from_state": "FL",
+    "from_zip": "33432",
+    "last": "Doe",
+    "move_date": "2026-11-30",
+    "packing": "No",
+    "phone": "6035840038",
+    "rep": "Christian",
+    "seconds": "78",
+    "sound": "yes",
+    "to_addr": "123 NW 13th St",
+    "to_city": "Boca Raton",
+    "to_state": "FL",
+    "to_zip": "33432",
+    "uid": "wt179411317095322uyssg0"
+  },
+  "video_file": "video.mp4"
+}
