@@ -178,7 +178,7 @@ button:focus-visible,.thumb:focus-visible{outline:2px solid var(--accent);outlin
         <div class="card-h"><h2 id="h-inv">Inventory</h2><p id="inv-sub"></p></div>
         <div class="cols" aria-hidden="true"><span>Clip</span><span>Granot item</span><span>Qty</span><span class="r">Cf each</span><span class="r">Total cf</span></div>
         <div class="rows" id="rows"></div>
-        <div class="subhead"><h3>Boxes</h3><span id="box-sub"></span></div>
+        <div class="subhead" id="boxhead"><h3>Boxes</h3><span id="box-sub"></span></div>
         <div class="rows" id="boxrows"></div>
         <div class="total-row"><span>Total</span><span class="mono" id="t-total"></span></div>
       </section>
@@ -275,8 +275,17 @@ const D = __DATA_JSON__;
       '<output id="q-' + it.id + '"></output><button type="button" class="step" data-step="1" data-id="' + it.id + '" aria-label="One more ' + esc(it.name) + '">' + PLUS + '</button></span></div>' +
       '<div class="c-each num" id="e-' + it.id + '"></div><div class="c-total num strong" id="t-' + it.id + '"></div></div>';
   }
-  $('rows').innerHTML = D.items.map(rowHTML).join('');
-  $('boxrows').innerHTML = D.boxes.map(rowHTML).join('');
+  const byRoom = D.rooms && D.rooms.length;
+  if (byRoom) {
+    $('rows').innerHTML = D.rooms.map(r => {
+      const its = D.items.filter(i => i.room === r), bxs = D.boxes.filter(b => b.room === r);
+      return '<div class="subhead"><h3>' + esc(r) + '</h3><span>' + its.length + ' items' + (bxs.length ? ' · boxes' : '') + '</span></div>' + its.concat(bxs).map(rowHTML).join('');
+    }).join('');
+    $('boxhead').hidden = true; $('boxrows').hidden = true;
+  } else {
+    $('rows').innerHTML = D.items.map(rowHTML).join('');
+    $('boxrows').innerHTML = D.boxes.map(rowHTML).join('');
+  }
 
   $('notes').innerHTML = D.leftOff.map(n =>
     '<li class="note">' + thumb(n.t, n.img, n.pos, n.label, 'sm') + '<div class="note-b"><b>' + esc(n.label) + '</b><p>' + esc(n.note) + '</p></div></li>').join('') +
@@ -428,7 +437,7 @@ const D = __DATA_JSON__;
   const when = iso => { try { return new Date(iso).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }); } catch (e) { return ''; } };
   function payload() {
     const P = Object.assign({ lbsPerCf: 7 }, D.pricing || {});
-    const lines = all.filter(it => cur[it.id].qty > 0).map(it => ({ name: cur[it.id].name, cf: cur[it.id].cf, qty: cur[it.id].qty, custom: !!cur[it.id].custom, box: !!isBox[it.id] }));
+    const lines = all.filter(it => cur[it.id].qty > 0).map(it => ({ name: cur[it.id].name, cf: cur[it.id].cf, qty: cur[it.id].qty, custom: !!cur[it.id].custom, box: !!isBox[it.id], room: it.room || '' }));
     const total = lines.reduce((a, l) => a + l.cf * l.qty, 0);
     return {
       customer: D.customer, move_size: D.moveSize, move_date: D.moveDate, route: D.route,

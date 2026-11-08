@@ -17,6 +17,13 @@ def main() -> None:
     spec["items"].sort(key=lambda i: i["t"])
     spec["boxes"].sort(key=lambda i: i["t"])
     spec["flags"].sort(key=lambda i: i["t"])
+    if any(i.get("room") for i in spec["items"] + spec["boxes"]):
+        first = {}
+        for i in spec["items"] + spec["boxes"]:
+            r = i.get("room", "Other")
+            i["room"] = r
+            first[r] = min(first.get(r, 1e9), i["t"])
+        spec["rooms"] = sorted(first, key=lambda r: first[r])
     with open(os.path.join(HERE, "template.html"), encoding="utf-8") as f:
         html = f.read()
     data = json.dumps(spec, ensure_ascii=False).replace("</", "<\\/")
