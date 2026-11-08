@@ -1,3 +1,20 @@
+## LIVE LOOP (Nov 8, supersedes the cloud scheduled task)
+The cloud scheduled task "Walkthru inbox check" is DISABLED on purpose: a cloud run has no access to
+Christian's Chrome (Granot) and cannot push to the public walkthru repo, so it produced defaults-only
+reviews and never sent the customer questions. Everything runs in the interactive session instead,
+driven by a send_later loop (every 1 minute) that only continues while state/work-mode.json "on" is true.
+Each tick, FIRST re-book the next tick (send_later, 1 minute), then:
+1. git pull both repos; dispatch fetch.yml (gh api -X POST .../fetch.yml/dispatches -f ref=main); wait ~30s; pull.
+2. NEW upload (status "new"): claim it at once (status processing, push), then prepare.sh, watch the video, build
+   the inventory, write results/<uid>.json with the judgment questions (walkthru repo), push, status awaiting_customer.
+   Target: questions on the customer's screen within a few minutes of upload.
+3. ANSWERS arrive (state/calls/<uid>.json): in ONE pass, build + publish the review page, then enter Granot
+   (flat list, packing=No -> boxes into Packing Materials), set the db doc to entered, then set "done": true in the
+   customer's results file (this is what takes the bar to 100% and shows the call button) and send ONE email.
+   Review page may be published (and its link emailed) in parallel with the Granot entry; done:true only AFTER Granot is entered.
+4. db doc "approved" (Update Granot version): re-enter into the same job, short "Granot updated" email.
+Never send Granot emails/texts, never e-sign, never type passwords, email only cdubosque@yahoo.com.
+
 # Processing customer walkthroughs (instructions for Claude)
 
 Customers record a walkthrough on the Walkthru page. The video and their answers land in
